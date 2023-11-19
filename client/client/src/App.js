@@ -9,7 +9,7 @@ const App = () => {
   return (
     <Router>
       <div className="app">
-        {/* Your components and routes go here */}
+        {}
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
