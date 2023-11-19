@@ -12,7 +12,7 @@ const Login = () => {
 
   return (
     <div className="login-box">
-      <h1 className="login-title">Spotify</h1>
+      <h1 className="login-title">Musix</h1>
       <form className="login-form" onSubmit={handleSignIn}>
         <input type="text" className="login-input" placeholder="Username" />
         <input type="password" className="login-input" placeholder="Password" />
