@@ -4,7 +4,7 @@ import "./Register.css";
 
 const Register = () => {
   const history = useNavigate();
-  const [name, setName] = React.useState("");
+  const [username, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [phonenumber, setPhonenumber] = React.useState("");
@@ -22,11 +22,11 @@ const Register = () => {
       <form className="register-form" onSubmit={handleSubmit}>
         <input
           type="text"
-          name="name"
+          name="username"
           className="register-input"
-          placeholder="Name"
+          placeholder="UserName"
           value={name}
-          onChange={(event) => setName(event.target.value)}
+          onChange={(event) => setUserName(event.target.value)}
         />
         <input
           type="email"
