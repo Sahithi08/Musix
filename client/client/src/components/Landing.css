@@ -1,0 +1,56 @@
+/* landing.css */
+
+.landing-body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Pacifico', cursive;
+    background: url('https://cdn.gencraft.com/prod/user/36877c6d-7441-4d42-8ca3-0ca0e5f3ee66/1247c09b-a6cb-4a45-a750-50a55e95c2a9/image/image1_0.jpg?Expires=1701934507&Signature=L53kAdJAJ9J1yiwyLaJ9v27dCjsCMDQJAC~QLUPiyrgqqw6XZtcrt3Z3F7rxiKmJFpRsBN9tmdenFoIUiZk-JlkVkqBDi2gA-EpFGtLs1IDusWqiKtE3TExu3s7sK5cG~3~aKC9y6JxpmTljcY7weLD-2LrkVgROxmVcV98B3aBH0bvD7smSGq2RYElbC4hX-DqvMVPPgD7UMdDS~3uL4dLMaNHnhIu7pvS~h8Xs0KzgcyGWncM~txN4ghuGnJb3HUZtXh4Nm0ttBKhdNrLhMh5a6TK85T26XXazZ1UqslAFZG7LlwsJXMYG4I2Acyx-rcC4fRzqw-JLbptWXV8qQA__&Key-Pair-Id=K3RDDB1TZ8BHT8') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-size: 100%;
+  }
+  
+  .landing-container {
+    text-align: center;
+    margin-top: -300px;
+    font-size: xx-large;
+  }
+  
+  .header {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  
+  .buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    font-size: medium;
+  }
+  
+  .button {
+    font-family: 'Lobster', cursive;
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #1f78b4;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #105b9b;
+  }
+  
+  h1 {
+    font-family: 'Great Vibes', cursive;
+    color: #1f78b4;
+    margin-top: 20px; /* Adjust the margin-top as needed */
+  }
+  

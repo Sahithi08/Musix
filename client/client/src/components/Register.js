@@ -25,7 +25,7 @@ const Register = () => {
           name="username"
           className="register-input"
           placeholder="UserName"
-          value={name}
+          value={username}
           onChange={(event) => setUserName(event.target.value)}
         />
         <input
