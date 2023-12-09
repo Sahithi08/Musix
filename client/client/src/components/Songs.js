@@ -7,10 +7,13 @@ const Songs = () => {
     const [currentSong, setCurrentSong] = useState(0);
     const [duration, setDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
+    const [search, setSearch] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    
+    
 
     const audioRef = useRef(null);
-
-    const songs = [
+    const totalsongs = [
         {
             title: 'Jalsa',
             audio: require('./1.mp3'),
@@ -31,8 +34,56 @@ const Songs = () => {
             audio: require('./4.mp3'),
             cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
         },
-        // Add more songs as needed
+        {
+            title: 'Jalsa',
+            audio: require('./1.mp3'),
+            cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
+        },
+        {
+            title: 'Heart is beating',
+            audio: require('./2.mp3'),
+            cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
+        },
+        {
+            title: 'Cherry cherry lady',
+            audio: require('./3.mp3'),
+            cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
+        },
+        {
+            title: 'Animal',
+            audio: require('./4.mp3'),
+            cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
+        },
+        // Add more playlist as needed
     ];
+
+    const intplaylist = [
+        {
+            title: 'Jalsa',
+            audio: require('./1.mp3'),
+            cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
+        },
+        {
+            title: 'Heart is beating',
+            audio: require('./2.mp3'),
+            cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
+        },
+
+        // Add more playlist as needed
+    ];
+    const [playlist, setPlaylist] = useState(intplaylist);
+
+    const handleSearch = (e) => {
+        setSearch(e.target.value);
+        const results = totalsongs.filter(song =>
+            song.title.toLowerCase().includes(e.target.value.toLowerCase())
+        );
+        setSearchResults(results);
+    };
+    const addToPlaylist = (song) => {
+        setPlaylist([...playlist, song]);
+    };
+    
 
     const handlePlayPause = () => {
         if (isPlaying) {
@@ -44,11 +95,11 @@ const Songs = () => {
     };
 
     const handlePrevious = () => {
-        setCurrentSong((prevSong) => (prevSong === 0 ? songs.length - 1 : prevSong - 1));
+        setCurrentSong((prevSong) => (prevSong === 0 ? playlist.length - 1 : prevSong - 1));
     };
 
     const handleNext = () => {
-        setCurrentSong((prevSong) => (prevSong === songs.length - 1 ? 0 : prevSong + 1));
+        setCurrentSong((prevSong) => (prevSong === playlist.length - 1 ? 0 : prevSong + 1));
     };
 
     const handlePlaylistClick = () => {
@@ -80,38 +131,64 @@ const Songs = () => {
     };
 
     const playNextSong = () => {
-        const nextSong = (currentSong + 1) % songs.length;
+        const nextSong = (currentSong + 1) % playlist.length;
         setCurrentSong(nextSong);
     };
 
     useEffect(() => {
-        audioRef.current.addEventListener('timeupdate', handleTimeUpdate);
-        audioRef.current.addEventListener('durationchange', handleDurationChange);
-        audioRef.current.addEventListener('ended', playNextSong);
-
+        if (audioRef.current) {
+            audioRef.current.addEventListener('timeupdate', handleTimeUpdate);
+            audioRef.current.addEventListener('durationchange', handleDurationChange);
+            audioRef.current.addEventListener('ended', playNextSong);
+        }
+    
         return () => {
-            audioRef.current.removeEventListener('timeupdate', handleTimeUpdate);
-            audioRef.current.removeEventListener('durationchange', handleDurationChange);
-            audioRef.current.removeEventListener('ended', playNextSong);
+            if (audioRef.current) {
+                audioRef.current.removeEventListener('timeupdate', handleTimeUpdate);
+                audioRef.current.removeEventListener('durationchange', handleDurationChange);
+                audioRef.current.removeEventListener('ended', playNextSong);
+            }
         };
-    }, [currentSong]);
+    }, [currentSong, audioRef]);
+    
 
     useEffect(() => {
         if (isPlaying) {
             audioRef.current.play();
         }
-    }, [currentSong]);
+    }, [currentSong,audioRef]);
 
     return (
         <div className="music-player">
+            <div className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Search songs..."
+                    value={search}
+                    onChange={handleSearch}
+                />
+            </div>
+            {search && (
+                <div className="search-results">
+                    <ul>
+                        {searchResults.map((song, index) => (
+                            <li key={index} onClick={() => addToPlaylist(song)}>
+                                {song.title}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
+
             <div className="header">
                 <button className="button" onClick={handlePlaylistClick}>
                     ☰ Playlist
                 </button>
             </div>
             <div className="music-banner">
-                <img src={songs[currentSong].cover} alt={songs[currentSong].title} />
-                <h1>{songs[currentSong].title}</h1>
+                <img src={playlist[currentSong].cover} alt={playlist[currentSong].title} />
+                <h1>{playlist[currentSong].title}</h1>
             </div>
             <div className="seek-line">
                 <div className="time-display">{formatTime(currentTime)}</div>
@@ -143,14 +220,14 @@ const Songs = () => {
                     Close
                 </button>
                 <ul>
-                    {songs.map((song, index) => (
+                    {playlist.map((song, index) => (
                         <li key={index} onClick={() => handleSongClick(index)}>
                             {song.title}
                         </li>
                     ))}
                 </ul>
             </div>
-            <audio ref={audioRef} src={songs[currentSong].audio}></audio>
+            <audio ref={audioRef} src={playlist[currentSong].audio}></audio>
         </div>
     );
 };
@@ -161,7 +238,7 @@ export default Songs;
 
 
 
-// const songs = [
+// const playlist = [
 //     {
 //         title: 'Jalsa',
 //         audio: require('./1.mp3'),
@@ -182,5 +259,5 @@ export default Songs;
 //         audio: require('./4.mp3'),
 //         cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
 //     },
-//     // Add more songs as needed
+//     // Add more playlist as needed
 // ];
