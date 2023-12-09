@@ -34,27 +34,7 @@ const Songs = () => {
             audio: require('./4.mp3'),
             cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
         },
-        {
-            title: 'Jalsa',
-            audio: require('./1.mp3'),
-            cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
-        },
-        {
-            title: 'Heart is beating',
-            audio: require('./2.mp3'),
-            cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
-        },
-        {
-            title: 'Cherry cherry lady',
-            audio: require('./3.mp3'),
-            cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
-        },
-        {
-            title: 'Animal',
-            audio: require('./4.mp3'),
-            cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
-        },
-        // Add more playlist as needed
+
     ];
 
     const intplaylist = [
@@ -101,9 +81,27 @@ const Songs = () => {
     const handleNext = () => {
         setCurrentSong((prevSong) => (prevSong === playlist.length - 1 ? 0 : prevSong + 1));
     };
+    useEffect(() => {
+        if (playlist.length === 0) {
+            setPlaying(false);
+            setCurrentSong(0);
+           
+        }
+    }, [playlist]);
+    
     const removeFromPlaylist = (index) => {
-        setPlaylist(currentPlaylist => currentPlaylist.filter((_, i) => i !== index));
+        setPlaylist(currentPlaylist => {
+            const newPlaylist = currentPlaylist.filter((_, i) => i !== index);
+            if (index === currentSong || index === currentPlaylist.length - 1) {
+                
+                const newCurrentSong = currentSong >= newPlaylist.length ? newPlaylist.length - 1 : currentSong;
+                setCurrentSong(newCurrentSong);
+            }
+            return newPlaylist;
+        });
     };
+    
+    
 
 
     const handlePlaylistClick = () => {
@@ -194,9 +192,16 @@ const Songs = () => {
                 </button>
             </div>
             <div className="music-banner">
-                <img src={playlist[currentSong].cover} alt={playlist[currentSong].title} />
-                <h1>{playlist[currentSong].title}</h1>
+                {playlist[currentSong] ? (
+                    <>
+                        <img src={playlist[currentSong].cover} alt={playlist[currentSong].title} />
+                        <h1>{playlist[currentSong].title}</h1>
+                    </>
+                ) : (
+                    <div>No song selected</div>
+                )}
             </div>
+
             <div className="seek-line">
                 <div className="time-display">{formatTime(currentTime)}</div>
                 <input
@@ -238,7 +243,8 @@ const Songs = () => {
                 </ul>
             </div>
 
-            <audio ref={audioRef} src={playlist[currentSong].audio}></audio>
+            <audio ref={audioRef} src={playlist[currentSong] ? playlist[currentSong].audio : ''}></audio>
+
         </div>
     );
 };
