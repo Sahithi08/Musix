@@ -9,8 +9,8 @@ const Songs = () => {
     const [currentTime, setCurrentTime] = useState(0);
     const [search, setSearch] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    
-    
+
+
 
     const audioRef = useRef(null);
     const totalsongs = [
@@ -83,7 +83,7 @@ const Songs = () => {
     const addToPlaylist = (song) => {
         setPlaylist([...playlist, song]);
     };
-    
+
 
     const handlePlayPause = () => {
         if (isPlaying) {
@@ -101,6 +101,10 @@ const Songs = () => {
     const handleNext = () => {
         setCurrentSong((prevSong) => (prevSong === playlist.length - 1 ? 0 : prevSong + 1));
     };
+    const removeFromPlaylist = (index) => {
+        setPlaylist(currentPlaylist => currentPlaylist.filter((_, i) => i !== index));
+    };
+
 
     const handlePlaylistClick = () => {
         setPlaylistVisible(!playlistVisible);
@@ -141,7 +145,7 @@ const Songs = () => {
             audioRef.current.addEventListener('durationchange', handleDurationChange);
             audioRef.current.addEventListener('ended', playNextSong);
         }
-    
+
         return () => {
             if (audioRef.current) {
                 audioRef.current.removeEventListener('timeupdate', handleTimeUpdate);
@@ -150,13 +154,13 @@ const Songs = () => {
             }
         };
     }, [currentSong, audioRef]);
-    
+
 
     useEffect(() => {
         if (isPlaying) {
             audioRef.current.play();
         }
-    }, [currentSong,audioRef]);
+    }, [currentSong, audioRef]);
 
     return (
         <div className="music-player">
@@ -172,13 +176,16 @@ const Songs = () => {
                 <div className="search-results">
                     <ul>
                         {searchResults.map((song, index) => (
-                            <li key={index} onClick={() => addToPlaylist(song)}>
-                                {song.title}
+                            <li key={index}>
+                                <button onClick={() => addToPlaylist(song)}>
+                                    {song.title}
+                                </button>
                             </li>
                         ))}
                     </ul>
                 </div>
             )}
+
 
 
             <div className="header">
@@ -223,10 +230,14 @@ const Songs = () => {
                     {playlist.map((song, index) => (
                         <li key={index} onClick={() => handleSongClick(index)}>
                             {song.title}
+                            <button onClick={() => removeFromPlaylist(index)}>
+                                Remove
+                            </button>
                         </li>
                     ))}
                 </ul>
             </div>
+
             <audio ref={audioRef} src={playlist[currentSong].audio}></audio>
         </div>
     );
