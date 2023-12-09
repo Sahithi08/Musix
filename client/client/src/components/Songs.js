@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Songs.css';
 
+
 const Songs = () => {
     const [isPlaying, setPlaying] = useState(false);
     const [playlistVisible, setPlaylistVisible] = useState(false);
@@ -32,12 +33,12 @@ const Songs = () => {
         {
             title: 'Cherry cherry lady',
             audio: require('./3.mp3'),
-            cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
+            cover: 'https://i.pinimg.com/originals/8a/b5/00/8ab500599776df15138eeac89c3e2c9b.jpg',
         },
         {
             title: 'Animal',
             audio: require('./4.mp3'),
-            cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
+            cover: 'https://upload.wikimedia.org/wikipedia/en/9/93/Baahubali_2_The_Conclusion_poster.jpg',
         },
         // {
         //     title: 'Dheevara',
@@ -117,24 +118,24 @@ const Songs = () => {
         const newSongTitle = event.target[0].value;
         const newSongFile = event.target[1].files[0];
         const newSongCover = event.target[2].value;
-    
+
         if (newSongFile) {
             const newSongAudioUrl = URL.createObjectURL(newSongFile);
-    
+
             const newSong = {
                 title: newSongTitle,
-                audio: newSongAudioUrl, 
+                audio: newSongAudioUrl,
                 cover: newSongCover,
             };
-    
+
             settotsongs([...totsongs, newSong]);
             toggleAddSongPopup();
         } else {
-            
+
             alert("Please select an audio file.");
         }
     };
-    
+
 
 
 
@@ -211,9 +212,9 @@ const Songs = () => {
             {search && (
                 <div className="search-results">
                     <ul>
-                        {searchResults.map((song, index) => (
+                        {searchResults.slice(0, 3).map((song, index) => (
                             <li key={index}>
-                                <button onClick={() => addToPlaylist(song)}>
+                                <button className="result-button" onClick={() => addToPlaylist(song)}>
                                     {song.title}
                                 </button>
                             </li>
@@ -221,8 +222,6 @@ const Songs = () => {
                     </ul>
                 </div>
             )}
-
-
 
             <div className="header">
                 <button className="button" onClick={handlePlaylistClick}>
@@ -256,15 +255,17 @@ const Songs = () => {
             </div>
             <div className="controls">
                 <button className="control-button" onClick={handlePrevious}>
-                    Previous
+                    <i className="fa fa-step-backward"></i> {/* Previous */}
                 </button>
                 <button className="control-button play-pause" onClick={handlePlayPause}>
-                    {isPlaying ? 'Pause' : 'Play'}
+                    {isPlaying ? <i className="fa fa-pause"></i> : <i className="fa fa-play"></i>} {/* Pause or Play */}
                 </button>
                 <button className="control-button" onClick={handleNext}>
-                    Next
+                    <i className="fa fa-step-forward"></i> {/* Next */}
                 </button>
             </div>
+
+
             <div className={`playlist ${playlistVisible ? 'visible' : ''}`}>
                 <button className="close-button" onClick={handlePlaylistClick}>
                     Close
@@ -273,7 +274,7 @@ const Songs = () => {
                     {playlist.map((song, index) => (
                         <li key={index} onClick={() => handleSongClick(index)}>
                             {song.title}
-                            <button onClick={() => removeFromPlaylist(index)}>
+                            <button class='remove-button' onClick={() => removeFromPlaylist(index)}>
                                 Remove
                             </button>
                         </li>
