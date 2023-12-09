@@ -9,6 +9,11 @@ const Songs = () => {
     const [currentTime, setCurrentTime] = useState(0);
     const [search, setSearch] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [showAddSongPopup, setShowAddSongPopup] = useState(false);
+
+    const toggleAddSongPopup = () => {
+        setShowAddSongPopup(!showAddSongPopup);
+    };
 
 
 
@@ -34,6 +39,11 @@ const Songs = () => {
             audio: require('./4.mp3'),
             cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
         },
+        // {
+        //     title: 'Dheevara',
+        //     audio: require('./5.mp3'),
+        //     cover: 'https://upload.wikimedia.org/wikipedia/en/9/93/Baahubali_2_The_Conclusion_poster.jpg',
+        // },
 
     ];
 
@@ -52,10 +62,11 @@ const Songs = () => {
         // Add more playlist as needed
     ];
     const [playlist, setPlaylist] = useState(intplaylist);
+    const [totsongs, settotsongs] = useState(totalsongs);
 
     const handleSearch = (e) => {
         setSearch(e.target.value);
-        const results = totalsongs.filter(song =>
+        const results = totsongs.filter(song =>
             song.title.toLowerCase().includes(e.target.value.toLowerCase())
         );
         setSearchResults(results);
@@ -85,23 +96,46 @@ const Songs = () => {
         if (playlist.length === 0) {
             setPlaying(false);
             setCurrentSong(0);
-           
+
         }
     }, [playlist]);
-    
+
     const removeFromPlaylist = (index) => {
         setPlaylist(currentPlaylist => {
             const newPlaylist = currentPlaylist.filter((_, i) => i !== index);
             if (index === currentSong || index === currentPlaylist.length - 1) {
-                
+
                 const newCurrentSong = currentSong >= newPlaylist.length ? newPlaylist.length - 1 : currentSong;
                 setCurrentSong(newCurrentSong);
             }
             return newPlaylist;
         });
     };
+
+    const handleAddSong = (event) => {
+        event.preventDefault();
+        const newSongTitle = event.target[0].value;
+        const newSongFile = event.target[1].files[0];
+        const newSongCover = event.target[2].value;
     
+        if (newSongFile) {
+            const newSongAudioUrl = URL.createObjectURL(newSongFile);
     
+            const newSong = {
+                title: newSongTitle,
+                audio: newSongAudioUrl, 
+                cover: newSongCover,
+            };
+    
+            settotsongs([...totsongs, newSong]);
+            toggleAddSongPopup();
+        } else {
+            
+            alert("Please select an audio file.");
+        }
+    };
+    
+
 
 
     const handlePlaylistClick = () => {
@@ -162,13 +196,17 @@ const Songs = () => {
 
     return (
         <div className="music-player">
-            <div className="search-bar">
-                <input
-                    type="text"
-                    placeholder="Search songs..."
-                    value={search}
-                    onChange={handleSearch}
-                />
+
+            <div className="top-controls">
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Search songs..."
+                        value={search}
+                        onChange={handleSearch}
+                    />
+                </div>
+                <button className="add-song-button" onClick={toggleAddSongPopup}>Add Song</button>
             </div>
             {search && (
                 <div className="search-results">
@@ -242,6 +280,19 @@ const Songs = () => {
                     ))}
                 </ul>
             </div>
+            {showAddSongPopup && (
+                <div className="add-song-popup">
+                    <button className="close-button" onClick={toggleAddSongPopup}>✖</button>
+                    <form onSubmit={handleAddSong}>
+                        <input type="text" placeholder="Song Title" required />
+                        <input type="file" accept="audio/*" required />
+                        <input type="text" placeholder="Cover URL" required />
+                        <button type="submit">Add Song</button>
+                    </form>
+                </div>
+            )}
+
+
 
             <audio ref={audioRef} src={playlist[currentSong] ? playlist[currentSong].audio : ''}></audio>
 
@@ -251,30 +302,3 @@ const Songs = () => {
 
 export default Songs;
 
-
-
-
-
-// const playlist = [
-//     {
-//         title: 'Jalsa',
-//         audio: require('./1.mp3'),
-//         cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
-//     },
-//     {
-//         title: 'Heart is beating',
-//         audio: require('./2.mp3'),
-//         cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
-//     },
-//     {
-//         title: 'Cherry cherry lady',
-//         audio: require('./3.mp3'),
-//         cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
-//     },
-//     {
-//         title: 'Animal',
-//         audio: require('./4.mp3'),
-//         cover: 'https://www.filmibeat.com/img/220x80x275/popcorn/movie_posters/jalsa-524.jpg',
-//     },
-//     // Add more playlist as needed
-// ];

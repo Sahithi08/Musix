@@ -1,109 +1,277 @@
 /* Songs.css */
 
 .music-player {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  width: 100%;
+}
+
+.header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.button {
+  font-family: 'Lobster', cursive;
+  display: inline-block;
+  padding: 10px;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #1f78b4;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #105b9b;
+}
+
+.music-banner {
+  text-align: center;
+  position: relative;
+}
+
+.music-banner img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.music-banner h1 {
+  margin-top: 10px;
+  font-family: 'Great Vibes', cursive;
+  color: #1f78b4;
+}
+
+.seek-line {
+  width: 100%;
+  margin-top: 20px;
+  align-content: center;
   
-  .header {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-  }
-  
-  .button {
-    font-family: 'Lobster', cursive;
-    display: inline-block;
-    padding: 10px;
-    text-decoration: none;
-    color: #ffffff;
-    background-color: #1f78b4;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-  }
-  
-  .button:hover {
-    background-color: #105b9b;
-  }
-  
-  .music-banner {
-    text-align: center;
-    position: relative;
-  }
-  
-  .music-banner img {
-    max-width: 100%;
-    border-radius: 10px;
-  }
-  
-  .music-banner h1 {
-    margin-top: 10px;
-    font-family: 'Great Vibes', cursive;
-    color: #1f78b4;
-  }
-  
-  .seek-line {
-    width: 50%;
-    margin-top: 20px;
-    align-self: flex-end; 
-  }
-  
-  .controls {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-  
-  .control-button {
-    font-size: 20px;
-    background-color: #1f78b4;
-    color: #ffffff;
-    border: none;
-    border-radius: 50%;
-    padding: 15px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .play-pause {
-    background-color: #105b9b;
-  }
-  
-  .playlist {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 300px;
-    background-color: #1f78b4;
-    overflow-y: auto;
-    padding-top: 50px;
-    z-index: 1;
-  }
-  
-  .playlist.visible {
-    display: block;
-  }
-  
-  .playlist ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .playlist li {
-    padding: 15px;
-    cursor: pointer;
-    color: #ffffff;
-    transition: background-color 0.3s ease;
-  }
-  
-  .playlist li:hover {
-    background-color: #105b9b;
-  }
-  
+}
+
+.controls {   
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.control-button {
+  font-size: 20px;
+  background-color: #1f78b4;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.play-pause {
+  background-color: #105b9b;
+}
+
+.playlist {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 300px;
+  background-color: #1f78b4;
+  overflow-y: auto;
+  padding-top: 50px;
+  z-index: 1;
+}
+
+.playlist.visible {
+  display: block;
+}
+
+.playlist ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.playlist li {
+  padding: 15px;
+  cursor: pointer;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+
+.playlist li:hover {
+  background-color: #105b9b;
+}
+.search-bar {
+  width: 100%; 
+  display: flex;
+  justify-content: center; 
+  padding: 5px 0; 
+}
+.search-bar input {
+  padding: 10px;
+  margin: 50px;
+  border-radius: 5px;
+  border: 1px solid #1f78b4;
+  height: 20px;
+  width: 300px; 
+}
+
+
+
+.search-results {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+}
+
+.time-display {
+  margin: 0 10px;
+}
+
+.seek-line input[type="range"] {
+  width: 50%;
+  margin: 50px 0;
+  margin-left: 100px;
+  align-content: center;
+}
+
+
+.playlist {
+  display: none; /* Hide by default */
+  position: fixed; /* Fixed position */
+  top: 70px; /* Align to top */
+  left: 0; /* Align to left */
+  height: 100vh; /* Full viewport height */
+  width: 300px; /* Adjust width as per your design */
+  background-color: #1f78b4; /* Background color */
+  overflow-y: auto; /* Enable scroll for overflow content */
+  padding-top: 50px; /* Padding at the top */
+  z-index: 2; /* Higher z-index to stay on top */
+  transition: transform 0.3s ease; /* Smooth transition for opening/closing */
+  transform: translateX(-100%); /* Start offscreen */
+}
+
+.playlist.visible {
+  display: block; /* Show playlist */
+  transform: translateX(0); /* Move into view */
+}
+
+.playlist ul {
+  list-style: none; /* Remove default list styling */
+  padding: 0;
+  margin: 0;
+}
+
+.playlist li {
+  padding: 15px;
+  cursor: pointer; 
+  color: #ffffff; 
+  transition: background-color 0.3s ease; 
+}
+
+.playlist li:hover {
+  background-color: #105b9b;
+}
+
+.playlist .close-button {
+  position: absolute; 
+  top: 10px; 
+  right: 10px; 
+  padding: 5px 10px;
+  background-color: #f44336; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-song-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Darker semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+.add-song-popup form {
+  position: relative;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+  max-width: 500px; /* Set a max width for larger screens */
+  width: 100%; /* Full width on smaller screens */
+  box-sizing: border-box; /* Makes sure padding doesn't add to the width */
+  text-align: center;
+}
+
+.add-song-popup form input[type="text"], 
+.add-song-popup form input[type="file"] {
+  width: calc(100% - 20px); /* Full width minus padding */
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd; /* subtle border */
+  border-radius: 5px;
+}
+
+.add-song-popup form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff; /* Bootstrap primary blue */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-song-popup form button:hover {
+  background-color: #0056b3; /* Darker shade for hover */
+}
+.add-song-popup .close-button {
+  position: absolute;
+  top: 310px;
+  right: 670px;
+  background-color: #ff5c5c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.add-song-popup .close-button:hover {
+  background-color: #ff3333;
+  transform: scale(1.1);
+}
+
+.add-song-popup .close-button:focus {
+  outline: none;
+}
