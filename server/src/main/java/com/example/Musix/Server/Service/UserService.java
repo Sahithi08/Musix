@@ -5,7 +5,9 @@ import com.example.Musix.Server.Models.RegisterDto;
 import com.example.Musix.Server.Models.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface UserService extends UserDetailsService {
     User registerUser(RegisterDto registerDto);
     User loginUser(LoginDto loginDto);

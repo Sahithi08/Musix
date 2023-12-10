@@ -1,8 +1,6 @@
 package com.example.Musix.Server.Models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @NoArgsConstructor
 @Getter
 @Setter
+@Entity
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
