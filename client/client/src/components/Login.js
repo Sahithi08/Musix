@@ -1,31 +1,33 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import "./Login.css"; 
 
 const Login = () => {
   const navigate = useNavigate();
 
   const handleSignIn = (event) => {
     event.preventDefault();
-    navigate("/home");
+    navigate("/songs");
+  };
+
+  const handleRegister = () => {
+    navigate("/register");
   };
 
   return (
-    <div className="login-box">
-      <h1 className="login-title">Musix</h1>
-      <form className="login-form" onSubmit={handleSignIn}>
-        <input type="text" className="login-input" placeholder="Username" />
-        <input type="password" className="login-input" placeholder="Password" />
-        <button type="submit" className="login-button">
-          SIGN IN
-        </button>
+    <div className="loginContainer">
+      <h1 className="loginTitle">Musix</h1>
+      <form className="loginForm" onSubmit={handleSignIn}>
+        <input type="text" className="loginInput" placeholder="Username" />
+        <input type="password" className="loginInput" placeholder="Password" />
+        <button type="submit" className="loginButton">SIGN IN</button>
       </form>
-      <a href="/forgot-password" className="login-forgot-password">
+      <a href="/forgot-password" className="forgotPasswordLink">
         Forgot Password?
       </a>
-      <a href="/register" className="login-register-button">
+      <button onClick={handleRegister} className="registerButton2">
         Register
-      </a>
+      </button>
     </div>
   );
 };

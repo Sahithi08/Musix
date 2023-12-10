@@ -1,4 +1,38 @@
 /* Songs.css */
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10%; 
+  z-index: 10;
+  position: relative;
+
+}
+.music-banner {
+  text-align: center;
+  position: relative;
+  height: 65%; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.seek-line {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 10%; 
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  height: 10%;
+  align-items: center;
+  gap: 20px;
+}
 
 .music-player {
   display: flex;
@@ -8,6 +42,7 @@
   height: 100vh;
   width: 100%;
 }
+
 
 .header {
   position: absolute;
@@ -31,11 +66,6 @@
   background-color: #105b9b;
 }
 
-.music-banner {
-  text-align: center;
-  position: relative;
-}
-
 .music-banner img {
   max-width: 100%;
   border-radius: 10px;
@@ -47,46 +77,25 @@
   color: #1f78b4;
 }
 
-.seek-line {
-  width: 100%;
-  margin-top: 20px;
-  align-content: center;
-  
-}
-
-.controls {   
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-}
 
 .control-button {
-  font-size: 20px;
+  width: 4vw; 
+  height: 8vh; 
+  font-size: 30px;
   background-color: #1f78b4;
   color: #ffffff;
-  border: none;
-  border-radius: 50%;
+  border: 30px;
+  border-radius: 100%;
   padding: 15px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
+
 .play-pause {
   background-color: #105b9b;
 }
 
-.playlist {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 300px;
-  background-color: #1f78b4;
-  overflow-y: auto;
-  padding-top: 50px;
-  z-index: 1;
-}
 
 .playlist.visible {
   display: block;
@@ -112,12 +121,12 @@
   width: 100%; 
   display: flex;
   justify-content: center; 
-  padding: 5px 0; 
+
 }
 .search-bar input {
   padding: 10px;
-  margin: 50px;
-  border-radius: 5px;
+  margin: 200px;
+  border-radius: 15px;
   border: 1px solid #1f78b4;
   height: 20px;
   width: 300px; 
@@ -126,48 +135,83 @@
 
 
 .search-results {
-  margin-top: 10px;
-  padding: 10px;
+  position: absolute;
+  top: 8%; /* Position it right below the search bar */
+  left: 48%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust for exact centering */
+  width: 310px; /* Match width of search bar input */
+  background-color: #ffffff;
   border-radius: 5px;
-  background-color: #f0f0f0;
+  z-index: 20; /* Higher than other elements */
+  max-height: 200px;
+
 }
+
+.search-results ul {
+  list-style: none; /* Remove default list styling */
+  padding: 0; /* Remove default padding */
+}
+
+.search-results li {
+  margin-bottom: 5px; /* Space between items */
+}
+
+.result-button {
+  background-color: #007bff; /* Example button color */
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+  width: 300px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.result-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
 
 .time-display {
   margin: 0 10px;
 }
 
 .seek-line input[type="range"] {
-  width: 50%;
-  margin: 50px 0;
-  margin-left: 100px;
+  width: 70%;
+  margin: 30px 30px;
   align-content: center;
 }
 
 
 .playlist {
-  display: none; /* Hide by default */
-  position: fixed; /* Fixed position */
-  top: 70px; /* Align to top */
-  left: 0; /* Align to left */
-  height: 100vh; /* Full viewport height */
-  width: 300px; /* Adjust width as per your design */
-  background-color: #1f78b4; /* Background color */
-  overflow-y: auto; /* Enable scroll for overflow content */
-  padding-top: 50px; /* Padding at the top */
-  z-index: 2; /* Higher z-index to stay on top */
-  transition: transform 0.3s ease; /* Smooth transition for opening/closing */
-  transform: translateX(-100%); /* Start offscreen */
+  display: none; 
+  position:fixed; 
+  top: 70px; 
+  left: 0; 
+  height: 100vh; 
+  width: 19%; 
+  background-color: #1f78b4;
+  overflow-y: auto; 
+  padding-top: 50px;
+  z-index: 10; 
+  transition: transform 1s ease; /*smooth transition*/
+  transform: translateX(-100%);
 }
 
 .playlist.visible {
-  display: block; /* Show playlist */
-  transform: translateX(0); /* Move into view */
+  display: block; 
+  transform: translateX(0); 
 }
 
 .playlist ul {
-  list-style: none; /* Remove default list styling */
+  list-style: none;
   padding: 0;
   margin: 0;
+  
 }
 
 .playlist li {
@@ -191,15 +235,11 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  z-index: 40;
 }
 
 
 
-.top-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .add-song-popup {
   position: fixed;
@@ -219,19 +259,19 @@
   background-color: white;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
-  max-width: 500px; /* Set a max width for larger screens */
-  width: 100%; /* Full width on smaller screens */
-  box-sizing: border-box; /* Makes sure padding doesn't add to the width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  max-width: 500px; 
+  width: 100%; 
+  box-sizing: border-box; 
   text-align: center;
 }
 
 .add-song-popup form input[type="text"], 
 .add-song-popup form input[type="file"] {
-  width: calc(100% - 20px); /* Full width minus padding */
+  width: calc(100% - 20px); 
   margin-bottom: 15px;
   padding: 10px;
-  border: 1px solid #ddd; /* subtle border */
+  border: 1px solid #ddd;
   border-radius: 5px;
 }
 
@@ -239,14 +279,14 @@
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #007bff; /* Bootstrap primary blue */
+  background-color: #007bff; 
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .add-song-popup form button:hover {
-  background-color: #0056b3; /* Darker shade for hover */
+  background-color: #0056b3;
 }
 .add-song-popup .close-button {
   position: absolute;
@@ -274,4 +314,24 @@
 
 .add-song-popup .close-button:focus {
   outline: none;
+}
+
+.remove-button {
+  
+  background-color: #eb8686; 
+  color: white; 
+  border: none; 
+  padding: 8px 16px; 
+  text-align: center; 
+  text-decoration: none; 
+  display: inline-block; 
+  font-size: 10px;
+  margin: 1px 1px; 
+  cursor: pointer; 
+  border-radius: 8px; 
+  transition: background-color 0.3s; 
+}
+
+.remove-button:hover {
+  background-color: #ff3333; 
 }

@@ -1,58 +1,53 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import "./Register.css";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Register.css';
 
 const Register = () => {
-  const history = useNavigate();
-  const [username, setUserName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [phonenumber, setPhonenumber] = React.useState("");
+  const navigate = useNavigate();
+  const [username, setUsername] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [phoneNumber, setPhoneNumber] = React.useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-
-    history("/login");
+    // Here you would typically handle the registration logic
+    navigate('/login');
   };
 
   return (
-    <div className="register-box">
-      <h1 className="register-title">Register</h1>
-      <form className="register-form" onSubmit={handleSubmit}>
+    <div className='registerContainer'>
+      <h1 className='registerTitle'>Register</h1>
+      <form className='registerForm' onSubmit={handleSubmit}>
         <input
-          type="text"
-          name="username"
-          className="register-input"
-          placeholder="UserName"
+          type='text'
+          className='registerInput'
+          placeholder='Username'
           value={username}
-          onChange={(event) => setUserName(event.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          type="email"
-          name="email"
-          className="register-input"
-          placeholder="Email"
+          type='email'
+          className='registerInput'
+          placeholder='Email'
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
-          type="password"
-          name="password"
-          className="register-input"
-          placeholder="Password"
+          type='password'
+          className='registerInput'
+          placeholder='Password'
           value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <input
-          type="tel"
-          name="phonenumber"
-          className="register-input"
-          placeholder="Phone Number"
-          value={phonenumber}
-          onChange={(event) => setPhonenumber(event.target.value)}
+          type='tel'
+          className='registerInput'
+          placeholder='Phone Number'
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
         />
-        <button type="submit" className="register-button">
+        <button type='submit' className='registerButton'>
           Register
         </button>
       </form>
